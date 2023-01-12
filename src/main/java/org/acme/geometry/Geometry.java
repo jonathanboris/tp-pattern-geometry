@@ -5,4 +5,6 @@ public interface Geometry {
     public boolean isEmpty();
     public void translate(double x,double y);
     public Geometry clone();
+    public Envelope getEnvelope();
+
 }

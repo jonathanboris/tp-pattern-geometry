@@ -35,4 +35,13 @@ public class Point implements Geometry{
         Point pointClone = new Point(this.coordinate);
         return  pointClone;
     }
+
+    @Override
+    public Envelope getEnvelope() {
+        EnvelopeBuilder builder = new EnvelopeBuilder();
+        builder.insert(this.coordinate);
+        Envelope envelope = builder.build();
+
+        return envelope;
+    }
 }

@@ -1,5 +1,6 @@
 package org.acme.geometry;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,4 +41,16 @@ public class LineString implements Geometry{
         }
         return new LineString(pointsClone);
     }
+
+    @Override
+    public Envelope getEnvelope() {
+        EnvelopeBuilder builder = new EnvelopeBuilder();
+        for(Point p:points){
+            builder.insert(p.getCoordinate());
+        }
+        Envelope envelope = builder.build();
+
+        return envelope;
+    }
+
 }
