@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LineString implements Geometry{
+public class LineString extends AbstractGeometry{
     private List<Point> points;
     public LineString(){
         Point p1 = new Point();

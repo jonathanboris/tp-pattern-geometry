@@ -93,4 +93,11 @@ public class PointTest {
         Assert.assertEquals( "POINT(4.0 1.2)", visitor.getResult() );
     }
 
+    @Test
+    public void testAsText(){
+        Coordinate c = new Coordinate(4.0,1.2);
+        Point point = new Point(c);
+        Assert.assertEquals( "POINT(4.0 1.2)", point.asText());
+    }
+
 }
