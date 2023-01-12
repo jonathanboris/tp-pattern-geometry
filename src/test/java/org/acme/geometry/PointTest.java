@@ -68,7 +68,7 @@ public class PointTest {
         Coordinate c = new Coordinate(4.0,1.2);
         Point point = new Point(c);
         WktWriter writer = new WktWriter();
-        Assert.assertEquals("POINT(4.0,1.2)",writer.write(point));
+        Assert.assertEquals("POINT(4.0 1.2)",writer.write(point));
     }
 
     @Test
@@ -82,6 +82,15 @@ public class PointTest {
         String result = os.toString("UTF8");
 
         Assert.assertEquals("je suis un point avec x=4.0 et y=1.2",result.trim());
+    }
+
+    @Test
+    public void testWktVisitor(){
+        WktVisitor visitor = new WktVisitor();
+        Coordinate c = new Coordinate(4.0,1.2);
+        Point point = new Point(c);
+        point.accept(visitor);
+        Assert.assertEquals( "POINT(4.0 1.2)", visitor.getResult() );
     }
 
 }
