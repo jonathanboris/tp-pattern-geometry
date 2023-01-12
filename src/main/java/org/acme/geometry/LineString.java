@@ -26,6 +26,11 @@ public class LineString implements Geometry{
         return "LineString";
     }
 
+    @Override
+    public void accept(GeometryVisitor visitor) {
+      visitor.visit(this);
+    }
+
     public boolean isEmpty(){
         return points.isEmpty();
     }

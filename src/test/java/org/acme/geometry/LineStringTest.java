@@ -4,6 +4,9 @@ package org.acme.geometry;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.sql.Array;
 import java.util.Arrays;
 
@@ -96,5 +99,20 @@ public class LineStringTest {
         LineString line = new LineString(Arrays.asList(p1,p2,p3,p4));
         WktWriter writer = new WktWriter();
         Assert.assertEquals("LINESTRING(0.0 0.0,2.0 3.0,2.4 3.5,3.0 5.0)",writer.write(line));
+    }
+
+    @Test
+    public void testVisitor() throws UnsupportedEncodingException {
+        Point p1 = new Point(new Coordinate(0.0,0.0));
+        Point p2 = new Point(new Coordinate(2.0,3.0));
+        Point p3 = new Point(new Coordinate(2.4,3.5));
+        Point p4 = new Point(new Coordinate(3.0,5.0));
+        LineString line = new LineString(Arrays.asList(p1,p2,p3,p4));
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(os);
+        LogGeometryVisitor visitor = new LogGeometryVisitor(out);
+        line.accept(visitor);
+        String result = os.toString("UTF8");
+        Assert.assertEquals("Je suis une polyligne définie par 4 point(s)",result.trim());
     }
 }
