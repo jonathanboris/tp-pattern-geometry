@@ -28,4 +28,16 @@ public class LineString implements Geometry{
     public boolean isEmpty(){
         return points.isEmpty();
     }
+    public void translate(double x,double y){
+      for(Point p: points){
+         p.translate(x,y);
+      }
+    }
+    public LineString clone(){
+        List<Point> pointsClone = new ArrayList<>();
+        for(Point p: points){
+            pointsClone.add(p.clone());
+        }
+        return new LineString(pointsClone);
+    }
 }

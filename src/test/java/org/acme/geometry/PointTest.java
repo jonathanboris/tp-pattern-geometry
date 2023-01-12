@@ -28,4 +28,25 @@ public class PointTest {
         Assert.assertEquals("Point",point.getType());
     }
 
+    @Test
+    public void testTranslate(){
+        Coordinate c = new Coordinate(4.0,1.2);
+        Point point = new Point(c);
+        point.translate(1.0,1.0);
+        Assert.assertEquals(5.0,point.getCoordinate().getX(),EPSILON);
+        Assert.assertEquals(2.2,point.getCoordinate().getY(),EPSILON);
+    }
+
+    @Test
+    public void testClone(){
+        Coordinate c = new Coordinate(4.0,1.2);
+        Point point = new Point(c);
+        Point pointCopy = point.clone();
+        pointCopy.translate(2.0,2.0);
+        Assert.assertEquals(4.0,point.getCoordinate().getX(),EPSILON);
+        Assert.assertEquals(6.0,pointCopy.getCoordinate().getX(),EPSILON);
+        Assert.assertEquals(1.2,point.getCoordinate().getY(),EPSILON);
+        Assert.assertEquals(3.2,pointCopy.getCoordinate().getY(),EPSILON);
+    }
+
 }

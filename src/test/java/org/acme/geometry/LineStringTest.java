@@ -49,4 +49,27 @@ public class LineStringTest {
         LineString line = new LineString();
         Assert.assertEquals("Line",line.getType());
     }
+
+    @Test
+    public void testTranslate(){
+        Point p1 = new Point(new Coordinate(0.0,0.0));
+        Point p2 = new Point(new Coordinate(2.0,3.0));
+        LineString line = new LineString(Arrays.asList(p1,p2));
+        line.translate(1.0,1.0);
+        Assert.assertEquals(1.0,line.getPointN(1).getCoordinate().getX(),EPSILON);
+        Assert.assertEquals(4.0,line.getPointN(2).getCoordinate().getY(),EPSILON);
+
+    }
+    @Test
+    public void testClone(){
+        Point p1 = new Point(new Coordinate(0.0,0.0));
+        Point p2 = new Point(new Coordinate(2.0,3.0));
+        LineString line = new LineString(Arrays.asList(p1,p2));
+        LineString lineClone = line.clone();
+        lineClone.translate(2.0,2.0);
+        Assert.assertEquals(0.0,line.getPointN(1).getCoordinate().getX(),EPSILON);
+        Assert.assertEquals(2.0,lineClone.getPointN(1).getCoordinate().getX(),EPSILON);
+        Assert.assertEquals(3.0,line.getPointN(2).getCoordinate().getY(),EPSILON);
+        Assert.assertEquals(5.0,lineClone.getPointN(2).getCoordinate().getY(),EPSILON);
+    }
 }
