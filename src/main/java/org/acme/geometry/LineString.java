@@ -23,7 +23,7 @@ public class LineString implements Geometry{
     }
     @Override
     public String getType() {
-        return "Line";
+        return "LineString";
     }
 
     public boolean isEmpty(){

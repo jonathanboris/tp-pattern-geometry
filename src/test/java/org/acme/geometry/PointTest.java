@@ -59,4 +59,12 @@ public class PointTest {
         Assert.assertEquals(1.2,point.getEnvelope().getYMin(),EPSILON);
     }
 
+    @Test
+    public void testWtk(){
+        Coordinate c = new Coordinate(4.0,1.2);
+        Point point = new Point(c);
+        WktWriter writer = new WktWriter();
+        Assert.assertEquals("POINT(4.0,1.2)",writer.write(point));
+    }
+
 }
