@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 
 public class PointTest {
 
@@ -99,5 +100,16 @@ public class PointTest {
         Point point = new Point(c);
         Assert.assertEquals( "POINT(4.0 1.2)", point.asText());
     }
+    @Test
+    public void testEnvelopeVisite() throws UnsupportedEncodingException {
+        Coordinate c = new Coordinate(4.0,1.2);
+        Point point = new Point(c);
 
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(os);
+        EnvelopeBuilder envelopeVisite = new EnvelopeBuilder(out);
+        point.accept(envelopeVisite);
+        String result = os.toString("UTF8");
+        Assert.assertEquals("Extent(XMin:4.0 YMin:1.2 XMax:4.0 YMax:1.2)",result.trim());
+    }
 }
