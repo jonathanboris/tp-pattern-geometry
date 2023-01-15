@@ -112,4 +112,13 @@ public class PointTest {
         String result = os.toString("UTF8");
         Assert.assertEquals("Extent(XMin:4.0 YMin:1.2 XMax:4.0 YMax:1.2)",result.trim());
     }
+
+    @Test
+    public void testCachedEnvelop(){
+        Geometry g = new Point(new Coordinate(3.0,3.0));
+        g = new GeometryWithCachedEnvelope(g);
+        Envelope a = g.getEnvelope() ;
+        Envelope b = g.getEnvelope() ;
+        Assert.assertSame(a,b);
+    }
 }

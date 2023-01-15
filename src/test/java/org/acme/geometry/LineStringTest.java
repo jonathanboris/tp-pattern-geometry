@@ -153,4 +153,18 @@ public class LineStringTest {
         String result = os.toString("UTF8");
         Assert.assertEquals("Extent(XMin:0.0 YMin:0.0 XMax:3.0 YMax:5.0)",result.trim());
     }
+
+    @Test
+    public void testCachedEnvelop(){
+        Point p1 = new Point(new Coordinate(0.0,0.0));
+        Point p2 = new Point(new Coordinate(2.0,3.0));
+        Point p3 = new Point(new Coordinate(2.4,3.5));
+        Point p4 = new Point(new Coordinate(3.0,5.0));
+
+        Geometry g = new LineString(Arrays.asList(p1,p2,p3,p4));
+        g = new GeometryWithCachedEnvelope(g);
+        Envelope a = g.getEnvelope() ;
+        Envelope b = g.getEnvelope() ;
+        Assert.assertSame(a,b);
+    }
 }
