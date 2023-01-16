@@ -29,6 +29,7 @@ public class Point extends AbstractGeometry{
         Coordinate newCoordiante = new Coordinate(actuelX+x,actuelY+y);
 
         this.coordinate = newCoordiante;
+
     }
 
     public Point clone(){

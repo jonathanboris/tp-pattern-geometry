@@ -1,6 +1,6 @@
 package org.acme.geometry;
 
-public class GeometryWithCachedEnvelope implements Geometry{
+public class GeometryWithCachedEnvelope implements Geometry,GeometryListener{
 
     private Geometry original;
     private Envelope cachedEnvelop;
@@ -8,9 +8,14 @@ public class GeometryWithCachedEnvelope implements Geometry{
 
     public GeometryWithCachedEnvelope(Geometry original){
         this.original = original;
-        cachedEnvelop = this.original.getEnvelope();
+        this.cachedEnvelop = this.original.getEnvelope();
     }
 
+    @Override
+    public void onChange(Geometry geometry) {
+        this.original = geometry;
+        this.cachedEnvelop = geometry.getEnvelope();
+    }
 
     @Override
     public Envelope getEnvelope() {
@@ -25,6 +30,7 @@ public class GeometryWithCachedEnvelope implements Geometry{
     @Override
     public void translate(double x, double y) {
        this.translate(x,y);
+       this.onChange(this);
     }
 
     @Override

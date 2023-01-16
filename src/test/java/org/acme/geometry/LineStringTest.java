@@ -167,4 +167,22 @@ public class LineStringTest {
         Envelope b = g.getEnvelope() ;
         Assert.assertSame(a,b);
     }
+
+    @Test
+    public void TestGeometryListener(){
+        Point p1 = new Point(new Coordinate(0.0,0.0));
+        Point p2 = new Point(new Coordinate(2.0,3.0));
+        Point p3 = new Point(new Coordinate(2.4,3.5));
+        Point p4 = new Point(new Coordinate(3.0,5.0));
+
+        Geometry line = new LineString(Arrays.asList(p1,p2,p3,p4));
+        GeometryWithCachedEnvelope pointCache = new GeometryWithCachedEnvelope(line);
+        line.translate(1.0,1.0);
+        pointCache.onChange(line);
+        Envelope envelope = line.getEnvelope();
+
+        Assert.assertEquals(pointCache.getEnvelope().getXMax(),envelope.getXMax(),EPSILON);
+        Assert.assertEquals(pointCache.getEnvelope().getXMin(),envelope.getXMin(),EPSILON);
+
+    }
 }

@@ -121,4 +121,16 @@ public class PointTest {
         Envelope b = g.getEnvelope() ;
         Assert.assertSame(a,b);
     }
+
+    @Test
+    public void TestGeometryListener(){
+        Geometry point = new Point(new Coordinate(3.0,3.0));
+        GeometryWithCachedEnvelope pointCache = new GeometryWithCachedEnvelope(point);
+        point.translate(1.0,1.0);
+        pointCache.onChange(point);
+        Envelope envelope = point.getEnvelope();
+
+       Assert.assertEquals(pointCache.getEnvelope().getXMax(),envelope.getXMax(),EPSILON);
+
+    }
 }
